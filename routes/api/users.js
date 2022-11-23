@@ -3,6 +3,8 @@ const router = express.Router()
 const {check,validationResult } = require("express-validator")
 const gravatar = require("gravatar")
 const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+const config = require("config")
 
 //check the user model, module`s root path error below ERIC
 const User = require("../../models/User")
@@ -33,7 +35,7 @@ try {
 let user = await User.findOne({email})
 
 if(user){
-    res.status(400).json({errors: [{msg: "User alrerady exists"}]})
+    return res.status(400).json({errors: [{msg: "User alrerady exists"}]})
 }
 
 //get the users gravatar
@@ -61,7 +63,20 @@ await user.save()
 
 //return jsonwebtoken
 
-res.send("user registered")
+const payload = {
+    user: {
+        id: user.id
+    }
+}
+
+jwt.sign(payload,
+    config.get("jwtSecret"),
+    {expiresIn: 360000},
+    (error,token)=> {
+        if(error) throw error
+        res.json({ token })
+    })
+
 } catch (error) {
     console.error(error.message)
     res.status(500).send("server error")
