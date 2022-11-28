@@ -68,7 +68,7 @@ jwt.sign(payload,
     {expiresIn: 360000},
     (error,token)=> {
         if(error) throw error
-        res.json({ token })
+        res.json({token})
     })
 
 } catch (error) {
