@@ -1,4 +1,6 @@
 {
     "mongoURI":"mongodb+srv://EMERN:PWAY0x4uZhzc7xuD@cluster0.rzqq8nn.mongodb.net/?retryWrites=true&w=majority",
-    "jwtSecret": "mysectrettoken"
+    "jwtSecret": "mysectrettoken",
+    "githubClientId": "0bd95d7c598c9f4e4c52",
+    "githubSecret": "1709e322940c7683b415d169327e41dadee04868"
 }
